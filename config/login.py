@@ -2,11 +2,14 @@
 # @Author: Allan
 import time
 
-from config.driver_config import DriverConfig
-import pytest
+from selenium.webdriver.common.by import By
 
+from config.driver_config import DriverConfig
+
+# import pytest
 
 driver = DriverConfig().driver_config()
+
 
 class logint:
 
@@ -22,8 +25,10 @@ class logint:
         Id('phone').send_keys(user)
         Id('password').send_keys(password)
         Xpath('//*[@id="w0"]/div[5]/button').click()
+        elements1 = driver.find_elements_by_xpath('/html/body/div[1]/div[2]/div/div/table/tbody/tr/td/a')
+        number = len(elements1)
         list = []
-        for i in range(1, 7):
+        for i in range(1, number + 1):
             element = Xpath(f'/html/body/div[1]/div[2]/div/div/table/tbody/tr[{i}]/td[1]/a')
             list.append(element.text)
         if any(fanganmingcheng in elements for elements in list):
@@ -48,4 +53,3 @@ class logint:
         Id('create-plan-name').send_keys(123)
         time.sleep(10)
         driver.close()
-
