@@ -9,7 +9,7 @@ Id = driver.find_element_by_id
 
 class Public_Methods:
 
-    def Creating_Solution(user, password, fanganmingcheng):
+    def Login(user, password):
         driver.maximize_window()
         url = 'https://admin-uat.yuanjian.live/login'
         driver.get(url)
@@ -17,6 +17,8 @@ class Public_Methods:
         Id('phone').send_keys(user)
         Id('password').send_keys(password)
         Xpath('//*[@id="w0"]/div[5]/button').click()
+
+    def Creating_Solution(fanganmingcheng):
         elements1 = driver.find_elements_by_xpath('/html/body/div[1]/div[2]/div/div/table/tbody/tr/td/a')
         number = len(elements1)
         list = []
