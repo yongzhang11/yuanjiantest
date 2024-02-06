@@ -1,4 +1,4 @@
-from config.login import Public_Methods
+from config.public import Public_Methods
 
 
 Public_Methods.Creating_Solution(15639799731, 'Zy1996321', "123")
