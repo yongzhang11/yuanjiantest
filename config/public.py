@@ -57,15 +57,12 @@ class Public_Methods:
             Xpath("//button[contains(text(),'完成并进入考试首页')]").click()
         else:
             pass
-            listnum = len(driver.find_elements_by_xpath("//ul[@class='list-interview']/li//h3"))
+            listing = len(driver.find_elements_by_xpath("//ul[@class='list-interview']/li//h3"))
             Exam_Names = []
-            for i in range(1, listnum + 1):
+            for i in range(1, listing + 1):
                 Exam_Name = Xpath(f"//ul[@class='list-interview']/li[{i}]//h3/a")
                 Exam_Names.append(Exam_Name.text)
             if any(name in elements for elements in Exam_Names):
-                # 存在 fanganmingcheng，点击对应的元素
                 for elements in Exam_Names:
                     if name in elements:
                         Xpath(f'//a[contains(text(),"{name}")]').click()
-        driver.implicitly_wait(10)
-        driver.close()
