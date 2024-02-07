@@ -7,6 +7,7 @@ driver = DriverConfig().driver_config()
 Xpath = driver.find_element_by_xpath
 Id = driver.find_element_by_id
 
+
 class Public_Methods:
 
     def Login(user, password):
@@ -42,9 +43,29 @@ class Public_Methods:
     def Creath_Exam(exam, name):
         driver.implicitly_wait(10)
         Xpath('//li[@id="nav-main-left-online"][2]').click()
-        Xpath('//a[text()= "创建考试" ]').click()
-        Xpath(f"//h3[text()='{exam}']/../..//button[text()='立即创建']").click()
+        exist = len(driver.find_elements_by_xpath('//a[text()= "创建考试" ]'))
+        print(exist)
+        if exist >= 1:
+            Xpath('//a[text()= "创建考试" ]').click()
+            Xpath(f"//h3[text()='{exam}']/../..//button[text()='立即创建']").click()
+            driver.implicitly_wait(10)
+            Id('create-plan-name').send_keys(name)
+            Xpath("//span[@class='input-date']/input[@placeholder='考试开始时间']").click()
+            Xpath("//div[@class='botflex jedatebtn']/span[contains(text(),'确定')]").click()
+            Xpath("//button[contains(text(),'下一步')]").click()
+            Xpath("//a[contains(text(),'稍后添加')]").click()
+            Xpath("//button[contains(text(),'完成并进入考试首页')]").click()
+        else:
+            pass
+            listnum = len(driver.find_elements_by_xpath("//ul[@class='list-interview']/li//h3"))
+            Exam_Names = []
+            for i in range(1, listnum + 1):
+                Exam_Name = Xpath(f"//ul[@class='list-interview']/li[{i}]//h3/a")
+                Exam_Names.append(Exam_Name.text)
+            if any(name in elements for elements in Exam_Names):
+                # 存在 fanganmingcheng，点击对应的元素
+                for elements in Exam_Names:
+                    if name in elements:
+                        Xpath(f'//a[contains(text(),"{name}")]').click()
         driver.implicitly_wait(10)
-        Id('create-plan-name').send_keys(name)
-        time.sleep(10)
         driver.close()
