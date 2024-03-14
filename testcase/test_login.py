@@ -14,4 +14,5 @@ class Test1():
         # 调用创建考试方法，传入考试名称和方案ID
         Public_Methods.Creath_Exam("线上考试", '1234')
         # 关闭驱动器
+        driver.quit()
         driver.close()
