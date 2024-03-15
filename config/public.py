@@ -10,7 +10,7 @@ Id = driver.find_element_by_id
 
 class Public_Methods:
 
-    def Login(user, password):
+    def Login(self, password):
         # 最大化浏览器窗口
         driver.maximize_window()
         # 设置登录URL
@@ -20,7 +20,7 @@ class Public_Methods:
         # 点击登录按钮
         Xpath('//*[@id="loginEvent"]/button').click()
         # 在用户名输入框中输入用户名
-        Id('phone').send_keys(user)
+        Id('phone').send_keys(self)
         # 在密码输入框中输入密码
         Id('password').send_keys(password)
         # 点击登录按钮
