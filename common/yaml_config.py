@@ -10,8 +10,6 @@ class GentConf:
         with open("../config/environment.yaml", "r", encoding="utf-8") as env_file:
             # 加载配置文件内容到self.env变量中
             self.env = yaml.load(env_file, Loader=yaml.FullLoader)
-            # 打印self.env变量内容（可选，已注释掉）
-            # print(self.env)
 
     def get_env(self, name):
         # 从self.env字典中根据name键获取对应的值
@@ -21,6 +19,3 @@ class GentConf:
         # 获取环境变量中指定名称的列表
         return self.env[name][i]
 
-
-# if __name__ == '__main__':
-#     print(type(GentConf().get_env("schemeID")))

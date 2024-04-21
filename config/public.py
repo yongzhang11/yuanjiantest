@@ -26,7 +26,7 @@ class Public_Methods:
         # 点击登录按钮
         Xpath('//*[@id="w0"]/div[5]/button').click()
 
-    def Creating_Solution(fanganmingcheng):
+    def Creating_Solution(self):
         # 找到网页上的指定元素列表
         elements1 = driver.find_elements_by_xpath('/html/body/div[1]/div[2]/div/div/table/tbody/tr/td/a')
         # 获取元素列表的长度
@@ -37,20 +37,20 @@ class Public_Methods:
         for i in range(1, number + 1):
             element = Xpath(f'/html/body/div[1]/div[2]/div/div/table/tbody/tr[{i}]/td[1]/a')
             list.append(element.text)
-        # 如果列表中存在fanganmingcheng，则点击对应的元素
-        if any(fanganmingcheng in elements for elements in list):
-            # 存在 fanganmingcheng，点击对应的元素
+        # 如果列表中存在self，则点击对应的元素
+        if any(self in elements for elements in list):
+            # 存在 self，点击对应的元素
             for elements in list:
-                if fanganmingcheng in elements:
-                    Xpath(f'//a[contains(text(),"{fanganmingcheng}")]').click()
+                if self in elements:
+                    Xpath(f'//a[contains(text(),"{self}")]').click()
         else:
-            # 不存在 fanganmingcheng，执行创建项目的操作
+            # 不存在 self，执行创建项目的操作
             # 点击创建项目的按钮
             Id('btn_createplan').click()
             # 等待2秒钟，确保页面加载完成
             time.sleep(2)
             # 在创建项目的输入框中输入项目名称
-            Id('create-project-name').send_keys(fanganmingcheng)
+            Id('create-project-name').send_keys(self)
             # 点击下一步按钮
             Xpath('//*[@id="create_step_2"]/div[2]/div[3]/div/div/div/button').click()
             # 等待2秒钟，确保页面加载完成
