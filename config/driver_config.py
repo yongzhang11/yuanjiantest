@@ -1,7 +1,7 @@
 # @Time：2024/2/3 19:13
 # @Author: Allan
 from selenium import webdriver
-
+from selenium.webdriver.chrome.options import Options
 
 class DriverConfig:
     def driver_config(self):
@@ -9,6 +9,10 @@ class DriverConfig:
         浏览器驱动
         :return:
         """
+        # 定义远程浏览器的地址
+        remote_url = "http://10.1.2.218:4444"
+        # 定义浏览器配置
+        chrome_options = Options()
         options = webdriver.ChromeOptions()
         # 设置窗口大小，设置为1920*1080
         options.add_argument("window-size=1920,1080")
@@ -27,7 +31,9 @@ class DriverConfig:
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        driver = webdriver.Chrome()
+        # driver = webdriver.Chrome()
+        # 创建远程浏览器实例
+        driver = webdriver.Remote(command_executor=remote_url, options=chrome_options)
         # 删除所有cookies
         driver.delete_all_cookies()
 
