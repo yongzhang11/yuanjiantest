@@ -1,0 +1,50 @@
+version: '3'
+services:
+  selenium-hub:
+    image: selenium/hub:latest
+    ports:
+      - 4442-4444:4442-4444
+    networks:
+      - grid
+    restart: always
+
+  selenium-node-chrome:
+    image: selenium/node-chrome:latest
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_SCREEN_WIDTH=1280
+      - SE_NODE_SCREEN_HEIGHT=800
+      - SE_NODE_MAX_SESSIONS=8
+    shm_size: 2g
+    ports:
+      - 5900:5900
+    networks:
+      - grid
+    restart: always
+
+  selenium-node-chrome2:   # 添加的第二个 Chrome 节点
+    image: selenium/node-chrome:latest
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_SCREEN_WIDTH=1280
+      - SE_NODE_SCREEN_HEIGHT=800
+      - SE_NODE_MAX_SESSIONS=8
+    shm_size: 2g
+    ports:
+      - 5901:5900   # 使用不同的 VNC 端口
+    networks:
+      - grid
+    restart: always
+
+networks:
+  grid:
+
+#说明：
+#这个Docker Compose文件定义了两个服务：selenium-hub和selenium-node-chrome。selenium-hub服务使用selenium/hub:latest镜像，并将端口4442-4444映射到主机的相同端口。selenium-node-chrome服务使用selenium/node-chrome:latest镜像，并设置了事件总线主机、事件发布和订阅端口、屏幕宽度和高度以及最大会话数等环境变量。它还将共享内存大小设置为2GB（shm_size: 2g）。
+#这两个服务都连接到grid网络，以允许容器之间的通信。
+#在与docker-compose.yml文件相同的目录中运行docker-compose up -d，容器将在后台启动，您将拥有一个具有指定配置的Selenium Grid环境。
+#注意：在使用此YAML文件之前，请确保已在系统上安装了Docker Compose。
