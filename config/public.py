@@ -4,6 +4,7 @@ import time
 from config.driver_config import DriverConfig
 import cv2
 import os
+import numpy as np
 
 driver = DriverConfig().driver_config()
 Xpath = driver.find_element_by_xpath
@@ -116,7 +117,6 @@ class Public_Methods:
     def test_screenshot_comparison(url):
         # 打开网页
         driver.get(url)
-        time.sleep(20)
         # 获取页面截图
         screenshot_path = os.path.join(COMPARISON_FOLDER, "actual_screenshot.png")
         if not os.path.exists(COMPARISON_FOLDER):
@@ -136,17 +136,17 @@ class Public_Methods:
         # 计算两张灰度图像的差异
         diff_image = cv2.absdiff(gray_image1, gray_image2)
 
-        # 如果差异图像中的像素值大于阈值（比如30），则认为两张图片不同
-        threshold = 30
+        threshold = 0.001
         diff_mask = diff_image > threshold
-
-        # 将差异的地方标记为红色
-        result_image = reference_image.copy()
-        result_image[diff_mask] = [0, 0, 255]  # 红色
-
-        # 保存结果图像到指定文件夹
-        output_folder = "output_images"
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
-        output_file = os.path.join(output_folder, "result_image.png")
-        cv2.imwrite(output_file, result_image)
+        total_pixels = gray_image1.size
+        diff_pixels = np.count_nonzero(diff_image)
+        percentage_diff = diff_pixels / total_pixels
+        if percentage_diff > threshold:
+            result_image = reference_image.copy()
+            result_image[diff_mask] = [0, 0, 255]  # 红色
+            # 保存结果图像到指定文件夹
+            output_folder = "output_images"
+            if not os.path.exists(output_folder):
+                os.makedirs(output_folder)
+            output_file = os.path.join(output_folder, "result_image.png")
+            cv2.imwrite(output_file, result_image)
