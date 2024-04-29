@@ -30,11 +30,14 @@ class DriverConfig:
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-
-        # driver = webdriver.Chrome()
+        # 本地浏览器实例
+        driver = webdriver.Chrome()
         # 创建远程浏览器实例
-        driver = webdriver.Remote(command_executor=remote_url, options=chrome_options)
+        # driver = webdriver.Remote(command_executor=remote_url, options=chrome_options)
         # 删除所有cookies
         driver.delete_all_cookies()
+        # yield driver
+        # 关闭浏览器
+        # driver.quit()
 
         return driver
