@@ -2,11 +2,9 @@ import time
 
 from DrissionPage import WebPage
 
-page = WebPage()
-
+page = WebPage(timeout=5)
 class PublicPage:
     def login(phone,password):
-        time.sleep(1)
         page.ele('#login').click()
         page.ele('#login-phone').click()
         page.ele('#loginform-phone').input(phone)
