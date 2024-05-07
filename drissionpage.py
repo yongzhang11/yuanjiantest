@@ -13,7 +13,7 @@ if ele:
     page.ele('.study-check ').click()
 else:
     PublicPage.login(15639799731,111111)
-
+    PublicPage.page_screenshot_comparison()
 
 
 
