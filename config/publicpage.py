@@ -5,16 +5,16 @@ import cv2
 import os
 import numpy as np
 
-COMPARISON_FOLDER = "tmp\comparison_images"
-ORIGINAL_IMAGE = "tmp\original_image"
+COMPARISON_FOLDER = "tmp\\comparison_images"
+ORIGINAL_IMAGE = "tmp\\original_image"
 page = WebPage(timeout=5)
 
 
 class PublicPage:
-    def login(phone, password):
+    def login(self, password):
         page.ele('#login').click()
         page.ele('#login-phone').click()
-        page.ele('#loginform-phone').input(phone)
+        page.ele('#loginform-phone').input(self)
         page.ele('#loginform-code').input('222222')
         page.ele('#mobile-login-idm-ok').click()
         text1 = page.ele('#login-code-error').texts()
@@ -23,8 +23,7 @@ class PublicPage:
                 page.ele('#loginform-code').clear()
                 page.ele('#loginform-code').input(password)
                 page.ele('#mobile-login-idm-ok').click()
-                time.sleep(1)
-                page.ele('#upgrade-id-ok').click()
+                time.sleep(2)
             else:
                 print('测试通过')
 
@@ -55,9 +54,11 @@ class PublicPage:
             result_image = reference_image.copy()
             result_image[diff_mask] = [0, 0, 255]  # 红色
             # 保存结果图像到指定文件夹
-            output_folder = "tmp\output_images"
+            output_folder = "tmp\\output_images"
             if not os.path.exists(output_folder):
                 os.makedirs(output_folder)
             output_file = os.path.join(output_folder, "result_image.png")
             cv2.imwrite(output_file, result_image)
             print("比对截图失败")
+        else:
+            print("比对截图成功")

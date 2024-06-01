@@ -1,21 +1,24 @@
 # @Time：2024/5/6 19:27
 # @Author: Allan
+
 import time
-from config.publicpage import PublicPage
-from config.publicpage import page
+from config.publicpage import PublicPage, page
+from selenium.common.exceptions import NoSuchElementException
 
-page.get('https://stu-fbt-uat.class-demo.com/')
-page.ele('#upgrade-id-ok').click()
-ele = page.ele('.user-name')
 
-def xunyuan_login(pohen,passwprd):
-    if ele:
-        time.sleep(1)
-        page.ele('.study-check ').click()
+def xunyuan_login(phone, password):
+    """
+    Function to log in to the Xunyuan platform.
+
+    :param phone: str, phone number for login
+    :param password: str, password for login
+    """
+    page.get('https://stu-fbt-uat.class-demo.com/')
+    username_element = page.ele('.user-name')
+    if username_element:
+        time.sleep(1)  # Consider replacing with an explicit wait
+        PublicPage.page_screenshot_comparison()
     else:
-        PublicPage.login(pohen,passwprd)
+        PublicPage.login(phone, password)
         PublicPage.page_screenshot_comparison()
     page.quit()
-
-
-
