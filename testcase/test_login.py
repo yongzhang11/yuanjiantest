@@ -2,8 +2,8 @@ import pytest
 import time
 
 from common.yaml_config import GentConf
-from config.public import Public_Methods
-from config.driver_config import DriverConfig
+from config.public import Public_Methods, driver
+from drissionpage import Jijiahyunke_login
 
 
 class Test1:
@@ -19,7 +19,8 @@ class Test1:
         # 调用创建考试方法，传入考试名称和方案ID
         Public_Methods.Creath_Exam(GentConf().get_env_multipleValued("ExaminationForm"),
                                    GentConf().get_env("ExaminationTitle"))
+        driver.close()
 
+    @pytest.mark.login
     def test_login2(self):
-        # 获取驱动器配置
-        driver = DriverConfig().driver_config()
+        Jijiahyunke_login(15639799731, 111111)

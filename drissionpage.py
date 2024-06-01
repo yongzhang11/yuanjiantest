@@ -6,7 +6,7 @@ from config.publicpage import PublicPage, page
 from selenium.common.exceptions import NoSuchElementException
 
 
-def xunyuan_login(phone, password):
+def Jijiahyunke_login(phone, password):
     """
     Function to log in to the Xunyuan platform.
 
