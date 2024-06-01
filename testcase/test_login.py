@@ -23,4 +23,4 @@ class Test1:
 
     @pytest.mark.login
     def test_login2(self):
-        Jijiahyunke_login(15639799731, 111111)
+        Jijiahyunke_login(GentConf().get_env("username"), GentConf().get_env("Verification_code"))
